@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -13,6 +14,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Post extends Model
 {
     /**
+     * @var array $guarded Guarded fields.
+     */
+    protected $guarded = [];
+
+    /**
      * Post has many comments.
      *
      * @return HasMany
@@ -20,5 +26,15 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Posts belongs to author.
+     *
+     * @return BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
     }
 }

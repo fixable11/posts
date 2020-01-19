@@ -13,6 +13,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Author extends Model
 {
     /**
+     * @var array $guarded Guarded fields.
+     */
+    protected $guarded = [];
+
+    /**
      * Author has many posts.
      *
      * @return HasMany

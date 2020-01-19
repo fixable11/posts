@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::namespace('Api')->group(function () {
+    Route::resource('posts', 'PostsController');
+    Route::resource('posts/{post}/comments', 'CommentsController');
+
+//    Route::get('posts', 'PostController@index')->name('posts.index');
+//    Route::get('posts/{post}', 'PostController@show')->name('posts.show');
+//    Route::put('posts/{post}', 'PostController@update')->name('posts.update');
+//    Route::delete('posts/{post}', 'PostController@delete')->name('posts.delete');
 });
+
