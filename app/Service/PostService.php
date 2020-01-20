@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Filesystem\ImageUploader;
 use App\Model\Author;
 use App\Model\Post;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -15,13 +17,28 @@ use Illuminate\Support\Facades\DB;
 class PostService
 {
     /**
+     * @var ImageUploader $imageUploader ImageUploader.
+     */
+    private $imageUploader;
+
+    /**
+     * PostService constructor.
+     *
+     * @param ImageUploader $imageUploader ImageUploader.
+     */
+    public function __construct(ImageUploader $imageUploader)
+    {
+        $this->imageUploader = $imageUploader;
+    }
+
+    /**
      * Get all posts.
      *
      * @return Post[]|Collection
      */
     public function getAllPosts()
     {
-        return Post::all();
+        return Post::with('comments')->get();
     }
 
     /**
@@ -30,10 +47,12 @@ class PostService
      * @param array $data Validated data.
      *
      * @return Post
+     * @throws Exception
      */
     public function createPost(array $data)
     {
         $post = new Post();
+        $data['image'] = $this->imageUploader->uploadBase64Image($data['image']);
         DB::transaction(function () use ($data, $post) {
             $post->fill($data);
             $post->author_id = rand(1, 5);
@@ -50,9 +69,11 @@ class PostService
      * @param array $data Validated data.
      *
      * @return Post
+     * @throws Exception
      */
     public function updatePost(Post $post, array $data)
     {
+        $data['image'] = $this->imageUploader->uploadBase64Image($data['image']);
         DB::transaction(function () use ($data, $post) {
             $post->update($data);
         });
@@ -65,7 +86,7 @@ class PostService
      *
      * @param Post $post Post.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function deletePost(Post $post)
     {

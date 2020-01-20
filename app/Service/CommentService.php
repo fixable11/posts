@@ -17,18 +17,6 @@ use Illuminate\Support\Facades\DB;
 class CommentService
 {
     /**
-     * Get all comments of the post.
-     *
-     * @param Post $post Post.
-     *
-     * @return Collection
-     */
-    public function getAllComments(Post $post)
-    {
-        return $post->comments()->get();
-    }
-
-    /**
      * Get the specific comment.
      *
      * @param Post    $post

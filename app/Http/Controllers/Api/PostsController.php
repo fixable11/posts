@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Filesystem\ImageUploader;
 use App\Http\Requests\Posts\CreateRequest;
 use App\Http\Requests\Posts\UpdateRequest;
 use App\Http\Resources\PostResource;
@@ -27,7 +28,7 @@ class PostsController
     /**
      * PostController constructor.
      *
-     * @param PostService $postService $postService.
+     * @param PostService $postService PostService.
      */
     public function __construct(PostService $postService)
     {
@@ -79,6 +80,7 @@ class PostsController
      * @param Post          $post    Post.
      *
      * @return PostResource
+     * @throws \Exception
      */
     public function update(UpdateRequest $request, Post $post)
     {

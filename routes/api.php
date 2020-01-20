@@ -17,11 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function () {
     Route::resource('posts', 'PostsController');
-    Route::resource('posts/{post}/comments', 'CommentsController');
 
-//    Route::get('posts', 'PostController@index')->name('posts.index');
-//    Route::get('posts/{post}', 'PostController@show')->name('posts.show');
-//    Route::put('posts/{post}', 'PostController@update')->name('posts.update');
-//    Route::delete('posts/{post}', 'PostController@delete')->name('posts.delete');
+    Route::put('posts/{post}/comments/{comment}', 'CommentsController@update');
+    Route::post('posts/{post}/comments', 'CommentsController@store');
+    Route::get('posts/{post}/comments/{comment}', 'CommentsController@show');
+    Route::delete('posts/{post}/comments/{comment}', 'CommentsController@destroy');
 });
 

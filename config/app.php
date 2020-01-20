@@ -56,6 +56,9 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'images_path' => 'public/images/',
+    'public_images_path' => '/storage/images/',
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

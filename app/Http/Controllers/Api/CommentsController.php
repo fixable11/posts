@@ -34,20 +34,6 @@ class CommentsController
     }
 
     /**
-     * List of comments.
-     *
-     * @param Post $post
-     *
-     * @return AnonymousResourceCollection
-     */
-    public function index(Post $post)
-    {
-        $posts = $this->commentService->getAllComments($post);
-
-        return CommentResource::collection($posts);
-    }
-
-    /**
      * Store post.
      *
      * @param CreateRequest $request Request.

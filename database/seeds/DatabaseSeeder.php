@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(Author::class, 5)->create()->each(function (Author $author) {
-            $posts = factory(Post::class, 5)->make();
+            $posts = factory(Post::class, 1)->make();
             $author->posts()->saveMany($posts);
             $posts->each(function (Post $post) {
-                $comments = factory(Comment::class, 5)->make();
+                $comments = factory(Comment::class, 4)->make();
                 $post->comments()->saveMany($comments);
             });
         });
