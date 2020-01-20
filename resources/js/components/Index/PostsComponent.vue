@@ -88,7 +88,7 @@
             async createNewPost() {
                 await this.createPost(this.formData);
                 document.querySelector('.closePostModal').click();
-                for (let ket in this.formData) {
+                for (let key in this.formData) {
                     this.formData[key] = '';
                 }
             }
